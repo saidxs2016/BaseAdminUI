@@ -1,0 +1,9 @@
+﻿
+
+// ======================== Notlar ========================
+// burada direk Controllerden gelen istekler işlenmeyecetir.
+// burada IServiceScopeFactory kullanılabilir yeni scope oluşturmak için.
+// MedRHUI gibi aslında tek fark içindeki handlerde Httpcontext null olması.
+// tüm request'ler AR ile bitecek.
+// AR == Application Request
+// ARH == Application Request Handler 

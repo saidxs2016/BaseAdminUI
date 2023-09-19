@@ -1,0 +1,121 @@
+{
+  "ConnectionStrings": {
+    "LogsDb": "Server=localhost;Port=5432;Database=main_sys_db;User Id=postgres;Password=123;"
+  },
+
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.PostgreSQL.Configuration" ],
+    "MinimumLevel": {
+      "Default": "Warning",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Warning",
+        "System": "Warning",
+        "Microsoft.AspNetCore": "Warning",
+        "Microsoft.AspNetCore.Authentication": "Warning"
+      }
+    },
+
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithProcessName" ],
+    "WriteTo": [
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "PostgreSQL",
+              "Args": {
+                "connectionString": "LogsDb",
+                //"schemaName": "public",
+                "tableName": "user_log",
+                "restrictedToMinimumLevel": "Warning",
+                "needAutoCreateTable": true,
+                "period": "0.00:01:00",
+                "batchSizeLimit": 60,
+                "useCopy": true
+              }
+            }
+          ]
+        }
+      }
+
+    ],
+    "Properties": {
+      "Application": "BaseAdminUI"
+    }
+  },
+
+  "Columns": {
+    "message": "RenderedMessageColumnWriter", // şu kullanıcı şunu ekledi şeklinde
+    "raise_date": "TimestampColumnWriter",
+    "exception": "ExceptionColumnWriter",
+    "remote_ip": {
+      "Name": "RemoteIpColumnWriter"
+    },
+    "full_name": {
+      "Name": "FullNameColumnWriter"
+    },
+    "role_name": {
+      "Name": "RoleNameColumnWriter"
+    },
+    "admin_uid": {
+      "Name": "AdminUidColumnWriter"
+    },
+    "path": { // yapılan istek controller action
+      "Name": "PathColumnWriter"
+    },
+    "request_info": { // yapılan istek query bilgileri
+      "Name": "RequestInfoColumnWriter"
+    },
+    "by_user": { // vekalet girişlerde vekil olan kullanıcı uid'si
+      "Name": "ByUserColumnWriter"
+    },
+    "log_level": { // info warning error işlemlerinin tutulduğu alan
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "LogLevel",
+        "writeMethod": "Raw",
+        "dbType": "Varchar",
+        "columnLength": "255"
+      }
+    },
+    "by_connection_key": { // vekalet girişlerde bağlantı anahtarı
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "ByConnectionKey",
+        "writeMethod": "Raw",
+        "dbType": "Varchar",
+        "columnLength": "255"
+      }
+    },
+    "status_code": { // 
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "StatusCode",
+        "writeMethod": "Raw",
+        "dbType": "Integer"
+        //"columnLength": "255"
+      }
+    },
+    "request_interval": { // isteğin çalışma zamanı aralığı
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "RequestInterval",
+        "writeMethod": "Raw",
+        "dbType": "Varchar",
+        "columnLength": "255"
+      }
+    },
+    "user_log": { // bu log tarafımdan mı yoksa başka bir nedenden dolay sistemden kaynaklı.
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "UserLog",
+        "writeMethod": "Raw",
+        "dbType": "Boolean"
+        //"columnLength": "255"
+      }
+    }
+
+
+  }
+}

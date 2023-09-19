@@ -1,0 +1,13 @@
+﻿
+
+// ======================== Notlar ========================
+// Burası Özel Bir Request Handler İşleme İşlemi Gerçekleşmekte.
+// UI == UI
+// RH == Requets Handlers
+// her bir klasör bir controller'e tekabül ediyor.
+// her kaldör içinde 2 tane kalsör olacak (Commands, Queries).
+// sadece Arayüzden yani controller'den veya Signalr Hub'dan gelen istekler burada işlenir.
+// buradan bir event yada mediator notificaion fırlatılabilir
+// her hangi bir şekilde başka bir hosted servis yada her hangi bir event handler tarafından buraya		istek gönderilmemelidir.
+// eğer istek bir controller yada hub dışından gelir ise Httpcontext null olacak ve bu bir çok yerde hataya yol açabilir.	
+// burada IServiceScopeFactory kullanılabilir yeni scope oluşturmak için.

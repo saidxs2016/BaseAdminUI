@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Rol Ekle";
+}
+
+@section Head{
+
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+       
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <form v-on:submit.prevent="AddForm()">
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Rol Tanımı</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="role.name" required minlength="3" maxlength="255" placeholder="Rol tanımı giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Yönlendirilecek Sayfa</label>                            
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="role.route" maxlength="255" placeholder="Rol tanımı giriniz">
+                            </div>
+                        </div> 
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-xxl-4 col-sm-4 col-4 mx-auto">
+                                <button type="submit" class="btn btn-success w-100">EKLE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/views-js/role/role-add.js" type="module" defer></script>
+
+
+}

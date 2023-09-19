@@ -1,0 +1,41 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="icons-collections-modal" tabindex="-1" role="dialog" aria-labelledby="icons-collections-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header" id="icons-collections-modal-label">
+                <h5 class="modal-title">İkon Seçiniz</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ikon adı:</label>
+                    <input type="text" class="form-control" onkeyup="searchIcons(this)" placeholder="ikon adı">
+                </div>
+
+
+                <div class="text-center mt-3">
+                    <button id="font-icons" type="button" onclick="setSelectedIconsSet(1)" style="margin-right: 5px;" class="btn btn-light-dark">İcon Fontawesome</button>
+                    <button id="moon-icons" type="button" onclick="setSelectedIconsSet(2)" style="margin-right: 5px;" class="btn btn-light-dark">İcon Moon</button>
+                    <button id="material-icons"  type="button" onclick="setSelectedIconsSet(3)" class="btn btn-light-dark">İcon Material</button>
+
+                </div>
+
+
+                <div class="card-body mt-3">
+                    <div class="row no-gutters glyphs" id="icons-collections">
+                        @*<div class="col-md-3 col-sm-4" v-for="item in tmp_icons">
+                        <div class="d-flex align-items-center icons_selector" onclick="assignSelectedIconToSelectedSectionInput(iconSetId)" v-html="item">
+                        </div>
+                        </div>*@
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

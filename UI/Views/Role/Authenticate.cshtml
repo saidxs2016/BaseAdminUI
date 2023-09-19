@@ -1,0 +1,180 @@
+﻿@model GetRequestModel;
+@{
+    ViewData["Title"] = "Yetkilendirme";
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+
+}
+
+@section Head{
+    <style>
+        .page .form-check-input:checked {
+            background-color: coral;
+            border-color: coral;
+        }
+
+        .feature .form-check-input:checked {
+            background-color: darkgreen;
+            border-color: darkgreen;
+        }
+    </style>
+
+    <link href="~/lib/tagify/tagify.min.css" rel="stylesheet" />
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+       
+        <div class="card px-2">
+            <div class="card-body dx-viewport" id="admincategorycreate">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <form v-on:submit.prevent="SubmitForm()">
+
+                            <div v-for="category in modules">
+                                
+
+
+                                <div class="form-check form-check-flat d-flex">
+
+                                    <div style="flex:2;">
+                                        <label class="form-check-label">
+                                            <input type="checkbox" v-model="checkedArr" class="form-check-input" :value="category.uid" v-on:change="selectAllPage(category.uid);">
+
+                                            {{category.name}}
+
+
+                                        </label>
+
+                                    </div>
+                                    <div style="flex:6;" v-show="category.type=='Page'">
+                                        <span>Ignored Selectors(seperator: -&&-): </span>
+                                        <input class="w-100 tag-category" :data-uid="category.uid" />
+                                    </div>
+                                    <div style="flex:2;">
+                                        <a href="javascript:void(0);" v-if="category.subModuleList && category.subModuleList.length > 0"
+                                           v-on:click="subToggle(category.uid)" style="float:right;margin-right:20px;">
+                                            <i class="fa fa-arrow-alt-circle-down" style="color:coral; font-size:20px;"></i>
+                                        </a>
+                                    </div>
+
+                                </div>
+
+
+
+
+                                <hr />
+                                <div v-for="page in category.subModuleList" :class="'col-md-11 offset-md-1 sub' + category.uid" style="display:none;">
+                                    <div class="form-check form-check-flat d-flex page">
+
+                                        <div style="flex:2;">
+                                            <label class="form-check-label">
+                                                <input type="checkbox" v-model="checkedArr" class="form-check-input" :value="page.uid" v-on:change="selectAllFeature(page.uid);">
+
+                                                {{page.name}}
+
+
+                                            </label>
+
+                                        </div>
+                                        <div style="flex:6;" v-show="page.type=='Page'">
+                                            <span>Ignored Selectors(seperator: -&&-): </span>
+                                            <input :class="'w-100 tag-'+category.uid" :data-uid="page.uid" />
+                                        </div>
+                                        <div style="flex:2;">
+                                            <a href="javascript:void(0);" v-if="page.subModuleList && page.subModuleList.length > 0"
+                                               v-on:click="subToggle(page.uid)" style="float:right;margin-right:20px;">
+                                                <i class="fa fa-arrow-alt-circle-down" style="color:darkgreen; font-size:20px;"></i>
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <hr style="color:coral; border:solid 1px coral;" />
+
+
+
+
+
+
+
+                                    <div v-for="feature in page.subModuleList" :class="'col-md-11 offset-md-1 sub' + page.uid" style="display:none;">
+                                        
+
+
+
+                                        <div class="form-check form-check-flat d-flex">
+
+                                            <div style="flex:2;">
+                                                <label class="form-check-label">
+                                                    <input type="checkbox" v-model="checkedArr" class="form-check-input" :value="feature.uid">
+
+                                                    {{feature.name}}
+
+
+                                                </label>
+
+                                            </div>
+                                            <div style="flex:6;" v-show="feature.type=='Page'">
+                                                <span>Ignored Selectors(seperator: -&&-): </span>
+                                                <input :class="'w-100 tag-'+page.uid" :data-uid="feature.uid" />
+                                            </div>
+                                            <div style="flex:2;">
+                                                <a href="javascript:void(0);" v-if="feature.subModuleList && feature.subModuleList.length > 0"
+                                                   v-on:click="subToggle(feature.uid)" style="float:right;margin-right:20px;">
+                                                    <i class="fa fa-arrow-alt-circle-down" style="color:darkgreen; font-size:20px;"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+
+
+
+
+                                        <hr style="color:darkgreen; border:solid 1px darkgreen;" />
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">&nbsp;</label>
+                                <div class="col-sm-10">
+                                    <input type="submit" class="btn btn-success" value="KAYDET" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        const Uid = "@uid" == "" ? null : "@uid";
+    </script>
+
+    <script src="~/lib/tagify/tagify.min.js" defer></script>
+    <script src="~/views-js/role/role-authenticate.js" type="module" defer></script>
+
+
+}
+

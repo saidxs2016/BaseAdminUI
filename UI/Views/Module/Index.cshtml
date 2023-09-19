@@ -1,0 +1,64 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Modül Listesi";
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+
+}
+
+@section Head{
+
+}
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+ 
+
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-end "> 
+                        <a href="/module/add/@uid" data-auth-key="/module/add/@uid" class="btn btn-success authorization-key" data-placement="bottom" data-popup="tooltip" title="Modül Ekle"><i class="icon-add" aria-hidden="true"></i> Modül Ekle </a>
+                    </div>
+
+                    
+
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered" id="datatable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Modül Adı</th>
+                                    <th>Controller</th>
+                                    <th>Action</th>
+                                    <th>Adres</th>
+                                    <th>İkon</th>
+                                    <th>Alt Modüller</th>
+                                    <th>Is Menu</th>
+                                    <th>Tip</th>
+                                    <th>Ekleme Tarihi</th>
+                                    <th>Güncelleme Tarihi</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        const Uid = "@uid" == "" ? null : "@uid";
+    </script>
+    <script src="~/lib/jqueryui/jquery-ui.min.js" defer></script>
+    <script src="~/views-js/module/module-index.js" type="module" defer></script>
+}
+

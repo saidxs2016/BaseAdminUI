@@ -1,0 +1,11 @@
+﻿
+
+// ======================== Notlar ========================
+// Contracts == Event Message işlevini yapacak notification sınıflarını barındırmakta
+// Consumers == Event Handler işlevini yapacak handler sınıflarını barındırmakta
+// buradan her hangi bir şekilde MedRHUI' klasör içindek handler'lere istek atılmaz.
+// constracture içinde sadece IServiceScopeFactory veya IServiceProvider tanımlı olacak.
+// geri kalan dependency injectionler using scope içinde ihtiyaça göre çağırlacaktır.
+// buradan MedRHApplication' klsörü içindeki handlerler istek atılabilir (tavsiye edilmez).
+// buradan MedNotificationsHandlers' klsörü içindeki handlerler notification atılabilir (tavsiye edilmez).
+// burada event yakalandıktan sonra direk burada scope içinde işlenebilir (tavsiye edilir).

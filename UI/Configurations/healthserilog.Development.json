@@ -1,0 +1,76 @@
+{
+  "ConnectionStrings": {
+    "LogsDb": "Server=localhost;Port=5432;Database=main_sys_db;User Id=postgres;Password=123;"
+  },
+
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.PostgreSQL.Configuration", "Serilog.Sinks.Seq" ],
+    "MinimumLevel": {
+      "Default": "Warning",
+      "Override": {
+        "Microsoft": "Warning",
+        "Microsoft.Hosting.Lifetime": "Warning",
+        "System": "Warning",
+        "Microsoft.AspNetCore": "Warning",
+        "Microsoft.AspNetCore.Authentication": "Warning"
+      }
+    },
+
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithProcessId", "WithProcessName" ],
+    "WriteTo": [
+      {
+        "Name": "Async",
+        "Args": {
+          "configure": [
+            {
+              "Name": "PostgreSQL",
+              "Args": {
+                "connectionString": "LogsDb",
+                //"schemaName": "public",
+                "tableName": "health_log",
+                "restrictedToMinimumLevel": "Warning",
+                "needAutoCreateTable": true,
+                "period": "0.00:05:00",
+                "batchSizeLimit": 100,
+                "useCopy": true
+              }
+            },
+            {
+              "Name": "Seq",
+              "Args": {
+                "serverUrl": "http://localhost:5341"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "Properties": {
+      "Application": "BaseAdminUI"
+    }
+  },
+
+  "Columns": {
+    "message": "RenderedMessageColumnWriter", // şu kullanıcı şunu ekledi şeklinde
+    "message_template": "MessageTemplateColumnWriter",
+    "level": {
+      "Name": "LevelColumnWriter",
+      "Args": {
+        "renderAsText": true,
+        "dbType": "Varchar"
+      }
+    },
+    "raise_date": "TimestampColumnWriter",
+    "exception": "ExceptionColumnWriter",
+    "properties": "LogEventSerializedColumnWriter",
+    "machine_name": {
+      "Name": "SinglePropertyColumnWriter",
+      "Args": {
+        "propertyName": "MachineName",
+        "writeMethod": "Raw"
+        //"dbType": "Varchar",
+        //"columnLength": "100"
+      }
+    }
+  }
+}

@@ -1,0 +1,225 @@
+﻿@inject IAntiforgery antiforgery
+@{
+    Layout = null;
+    var request_token = antiforgery.GetAndStoreTokens(Context).RequestToken;
+
+    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>SAID YUNUS | KAYIT YAP </title>
+    <link rel="icon" type="image/x-icon" href="~/theme/src/assets/img/favicon.ico" />
+    <link href="~/theme/layouts/modern-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/layouts/modern-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <script src="~/theme/layouts/modern-light-menu/loader.js"></script>
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="~/theme/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/theme/layouts/modern-light-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/src/assets/css/light/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/theme/layouts/modern-light-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/src/assets/css/dark/authentication/auth-cover.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+
+    <link href="~/lib/toastr.js/toastr.min.css" rel="stylesheet" />
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        const VerifyToken = "@request_token";
+    </script>
+    <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
+    <script src="~/theme/src/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    @if (env == "Production")
+    {
+        <script src="~/lib/vue/vue.global.prod.js" defer></script>
+    }
+    else
+    {
+        <script src="~/lib/vue/vue.global.min.js" defer></script>
+
+    }
+    <script src="~/lib/axios/axios.min.js" defer></script>
+    <script src="~/lib/sweetalert2/sweetalert2.all.min.js" defer></script>
+    <script src="~/lib/toastr.js/toastr.min.js" defer></script>
+    <script src="~/lib/inputmask/jquery.inputmask.bundle.min.js" defer></script>
+
+    <script src="~/views-js/account/register.js" type="module" defer></script>
+</head>
+<body class="form">
+
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+        <div class="loader">
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center"></div>
+            </div>
+        </div>
+    </div>
+    <!--  END LOADER -->
+    <div class="auth-container d-flex" id="app">
+
+        <div class="container mx-auto align-self-center">
+
+            <div class="row">
+
+                <div class="col-6 d-lg-flex d-none h-100 my-auto top-0 start-0 text-center justify-content-center flex-column">
+                    <div class="auth-cover-bg-image"></div>
+                    <div class="auth-overlay"></div>
+
+                    <div class="auth-cover">
+
+                        <div class="position-relative">
+
+                            <img src="~/theme/src/assets/img/auth-cover.svg" alt="auth-img">
+
+                            <h2 class="mt-5 text-white font-weight-bolder px-2">Join the community of expert developers</h2>
+                            <p class="text-white px-2">It is easy to setup with great customer experience. Start your 7-day free trial</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-8 col-12 d-flex flex-column align-self-center ms-lg-auto me-lg-0 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <form id="register-form">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+
+                                        <h2>Kayıt Ol</h2>
+                                        <p>Kayıt olmak için e-postanızı ve şifrenizi girin</p>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Ad</label>
+                                            <input required minlength="2" maxlength="100" class="form-control add-billing-address-input" name="Name"> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Soyad</label>
+                                            <input required minlength="2" maxlength="100" class="form-control add-billing-address-input" name="Surname">
+                                        </div>
+                                    </div>
+                                   <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Kullanıcı Adı</label>
+                                            <input required minlength="4" maxlength="100" class="form-control add-billing-address-input" name="Username">
+                                        </div>
+                                    </div>
+                                   <div class="col-md-12">
+                                        <div class="mb-3">
+                                            <label class="form-label">Email</label>
+                                            <input type="email" required minlength="11" maxlength="100" class="form-control add-billing-address-input" name="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <label class="form-label">Şifre</label>
+                                            <input type="password" required class="form-control add-billing-address-input" v-model="password" minlength="4" maxlength="50" name="Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <label class="form-label">Şifre Tekararı</label>
+                                            <input type="password" required class="form-control add-billing-address-input" v-model="rePassword" minlength="4" maxlength="50" name="RePassword">
+                                            <span class="text-danger" v-if="password && password != rePassword">Şifre Eşleşmiyor</span>
+                                        </div>
+                                    </div> 
+
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <label class="form-label">Telefon</label>
+                                            <input required class="form-control add-billing-address-input" minlength="4" maxlength="50" id="phone" name="Phone">
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <div class="form-check form-check-primary form-check-inline">
+                                                <input class="form-check-input me-3" type="checkbox" v-model="termsAndConditions" id="form-check-default" name="TermsAndConditions" />
+                                                <label class="form-check-label" for="form-check-default">
+                                                    Kabul ediyorum <a href="javascript:void(0);" class="text-primary">Şartlar ve Koşullar</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="mb-4">
+                                            <button class="btn btn-secondary w-100" :disabled="!termsAndConditions">KAYDOL</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 mb-4">
+                                        <div class="">
+                                            <div class="seperator">
+                                                <hr>
+                                                <div class="seperator-text"> <span>veya ile devam et</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 col-12">
+                                        <div class="mb-4">
+                                            <button class="btn  btn-social-login w-100 ">
+                                                <img src="~/theme/src/assets/img/google-gmail.svg" alt="" class="img-fluid">
+                                                <span class="btn-text-inner">Google</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 col-12">
+                                        <div class="mb-4">
+                                            <button class="btn  btn-social-login w-100">
+                                                <img src="~/theme/src/assets/img/github-icon.svg" alt="" class="img-fluid">
+                                                <span class="btn-text-inner">Github</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 col-12">
+                                        <div class="mb-4">
+                                            <button class="btn  btn-social-login w-100">
+                                                <img src="~/theme/src/assets/img/twitter.svg" alt="" class="img-fluid">
+                                                <span class="btn-text-inner">Twitter</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="text-center">
+                                            <p class="mb-0">Zaten hesabınız var mı ? <a href="javascript:void(0);" class="text-warning">Giriş Yap</a></p>
+                                        </div>
+                                    </div>
+
+                                </div> 
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

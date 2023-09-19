@@ -1,0 +1,129 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Modül Güncelle";
+
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+
+    var modulesKeys = ModuleHelper.ModulesKeys;
+}
+
+@section Head{
+
+}
+
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+        
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <form v-on:submit.prevent="UpdateForm()">
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Modül Adı</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="module.name" required minlength="3" maxlength="255" placeholder="Modül Adı">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Adresi</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" v-model="module.address" required minlength="3" maxlength="255" placeholder="Modül Adresi">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Controller Adı</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="module.controller" maxlength="255" placeholder="Controller Adı">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Action</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="module.action" maxlength="255" placeholder="Action">
+                            </div>
+                        </div>
+                        @*     <div class="form-group row mb-1">
+                        <label class="col-sm-2 col-form-label">Modül Icon</label>
+                        <div class="col-sm-10">
+                        <input class="form-control" v-model="module.icon" maxlength="255" placeholder="Icon">
+                        </div>
+                        </div>*@
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label" style="margin-bottom: 0px;">
+                                İkon
+                                <span class="d-flex-inline justify-content-between w-100">
+                                    <span style="cursor:pointer" onclick="OpenIconsModal('#moduleIcon')">
+                                        <i class="fas fa-folder-plus me-3"></i>
+                                    </span>
+                                    <span style="cursor:pointer"><i :class="module.icon"></i></span>
+                                </span>
+
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" maxlength="50" class="form-control" v-model="module.icon" id="moduleIcon">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Modül Seçenekleri</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="module.type" maxlength="255" placeholder="Modül Seçenekleri">
+                                    <option v-for="item in modulesKeys" :value="item">{{item}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Yan Menü</label>
+                            <div class="col-sm-10">
+                                <div class="form-check form-check-primary form-check-inline">
+                                    <input class="form-check-input" type="radio" v-model="module.isMenu" :value="false" name="radio-checked" id="form-check-radio-default">
+                                    <label class="form-check-label" for="form-check-radio-default">
+                                        Yer Almasın
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-primary form-check-inline">
+                                    <input class="form-check-input" type="radio" v-model="module.isMenu" :value="true" name="radio-checked" id="form-check-radio-default">
+                                    <label class="form-check-label" for="form-check-radio-default">
+                                        Yer Alsın
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-xxl-4 col-sm-4 col-4 mx-auto">
+                                <button type="submit" class="btn btn-success w-100">Güncelle</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Icon Modal -->
+    <partial name="~/Views/Shared/PartialViews/_Icons.cshtml" />
+</div>
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        const Uid = "@uid" == "" ? null : "@uid";
+        const ModulesKeys = @Json.Serialize(modulesKeys);
+    </script>
+    <script src="~/views-js/shared/icon-component.js" defer></script>
+    <script src="~/views-js/module/module-update.js" type="module" defer></script>
+
+
+}

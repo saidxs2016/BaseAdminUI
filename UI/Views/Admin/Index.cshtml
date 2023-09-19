@@ -1,0 +1,44 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+    var full_name = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        full_name = User.Claims.FirstOrDefault(i => i.Type == ClaimHelper.FullName).Value;
+    }
+}
+
+@section Head{
+
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+      
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    Merhabalar @full_name
+                </div>
+
+
+                <br />
+                <button type="button" id="signalr-btn" >test signalr </button>
+                <br />
+                <button type="button" id="rate-limit-btn">test rate limit </button>
+                <br />
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/views-js/admin/admin-index.js" type="module" defer></script>
+
+}

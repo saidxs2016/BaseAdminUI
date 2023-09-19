@@ -1,0 +1,42 @@
+﻿    <link href="~/js/datatables/DataTables-1.13.4/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/AutoFill-2.5.3/css/autoFill.dataTables.css" rel="stylesheet" />
+    <link href="~/js/datatables/Buttons-2.3.6/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/ColReorder-1.6.2/css/colReorder.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/DateTime-1.4.1/css/dataTables.dateTime.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/FixedColumns-4.2.2/css/fixedColumns.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/FixedHeader-3.3.2/css/fixedHeader.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/KeyTable-2.9.0/css/keyTable.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/Responsive-2.4.1/css/responsive.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/RowGroup-1.3.1/css/rowGroup.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/RowReorder-1.3.3/css/rowReorder.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/Scroller-2.1.1/css/scroller.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/SearchBuilder-1.4.2/css/searchBuilder.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/SearchPanes-2.1.2/css/searchPanes.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/Select-1.6.2/css/select.dataTables.min.css" rel="stylesheet" />
+    <link href="~/js/datatables/StateRestore-1.2.2/css/stateRestore.dataTables.min.css" rel="stylesheet" />
+
+
+
+
+      <script src="~/js/datatables/DataTables-1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/datatables/JSZip-2.5.0/jszip.min.js"></script>
+    <script src="~/js/datatables/pdfmake-0.2.7/pdfmake.min.js"></script>
+    <script src="~/js/datatables/pdfmake-0.2.7/vfs_fonts.js"></script>
+    <script src="~/js/datatables/AutoFill-2.5.3/js/dataTables.autoFill.min.js"></script>
+    <script src="~/js/datatables/Buttons-2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/datatables/Buttons-2.3.6/js/buttons.colVis.min.js"></script>
+    <script src="~/js/datatables/Buttons-2.3.6/js/buttons.html5.min.js"></script>
+    <script src="~/js/datatables/Buttons-2.3.6/js/buttons.print.min.js"></script>
+    <script src="~/js/datatables/ColReorder-1.6.2/js/dataTables.colReorder.min.js"></script>
+    <script src="~/js/datatables/DateTime-1.4.1/js/dataTables.dateTime.min.js"></script>
+    <script src="~/js/datatables/FixedColumns-4.2.2/js/dataTables.fixedColumns.min.js"></script>
+    <script src="~/js/datatables/FixedHeader-3.3.2/js/dataTables.fixedHeader.min.js"></script>
+    <script src="~/js/datatables/KeyTable-2.9.0/js/dataTables.keyTable.min.js"></script>
+    <script src="~/js/datatables/Responsive-2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="~/js/datatables/RowGroup-1.3.1/js/dataTables.rowGroup.min.js"></script>
+    <script src="~/js/datatables/RowReorder-1.3.3/js/dataTables.rowReorder.min.js"></script>
+    <script src="~/js/datatables/Scroller-2.1.1/js/dataTables.scroller.min.js"></script>
+    <script src="~/js/datatables/SearchBuilder-1.4.2/js/dataTables.searchBuilder.min.js"></script>
+    <script src="~/js/datatables/SearchPanes-2.1.2/js/dataTables.searchPanes.min.js"></script>
+    <script src="~/js/datatables/Select-1.6.2/js/dataTables.select.min.js"></script>
+    <script src="~/js/datatables/StateRestore-1.2.2/js/dataTables.stateRestore.min.js"></script>

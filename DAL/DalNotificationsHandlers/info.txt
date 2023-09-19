@@ -1,0 +1,7 @@
+
+// ======================== Notlar ========================
+// Here I'm Using Mediatr Notifcation.
+// Contracts == Contains Events Messages
+// Consumers == Contains Events Handlers
+// MN == Mediatr Notification
+// MNH == Mediatr Notification Handler

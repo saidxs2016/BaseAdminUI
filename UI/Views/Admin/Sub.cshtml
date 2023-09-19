@@ -1,0 +1,130 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Kullanıcı Listesi";
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+}
+
+@section Head{
+
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+       
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-start">
+                        <a href="/admin/all/@uid" class="btn btn-success" data-placement="bottom" data-popup="tooltip" title="Tüm Alt Kullanıcılar"><i class="icon-list" aria-hidden="true"></i> Tüm Alt Kullanıcılar </a>
+                    </div> 
+                    <div class="d-flex justify-content-end ">
+                        <a href="/admin/add/@uid" class="btn btn-success" data-placement="bottom" data-popup="tooltip" title="Kullanıcı Ekle"><i class="icon-add" aria-hidden="true"></i> Kullanıcı Ekle </a>
+                    </div>
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered" id="datatable-my">
+                            <thead>
+                                <tr>
+                                    <th>Kullanıcı Adı</th>
+                                    <th>Email</th>
+                                    <th>Rolü</th>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Title</th>
+                                    <th>Telefon</th>
+                                    <th>Durumu</th>
+                                    <th>Onay</th>
+                                    <th>Ekleme Tarihi</th>
+                                    <th>Güncelleme Tarihi</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr v-for="(item, index) in admins" class="item">
+                                    <td v-text="item.username"></td>
+                                    <td v-text="item.email"></td>
+                                    <td v-text="item.role.name"></td>
+                                    <td v-text="item.name"></td>
+                                    <td v-text="item.surname"></td>
+                                    <td v-text="item.title"></td>
+                                    <td v-text="item.phone"></td>
+                                    <td>
+                                        <a href="javascript:void(0);" :class="item.isSuspend ? 'btn btn-danger':'btn btn-success'" data-placement="bottom" data-popup="tooltip" :title="item.isSuspend ? 'Askıdan Çıkar':'Askıya Al'" v-on:click="suspendToogle(item.uid)"><i :class="item.isSuspend ? 'icon-user-block':'icon-user-check'"></i> </a>
+                                    </td>
+                                    <td v-text="item.isConfirmed ? 'Onaylı':'Onaylı Değil'"></td>
+                                    <td v-text="dateFormatFull(item.addDate)"></td>
+                                    <td v-text="dateFormatFull(item.updateDate)"></td>
+                                    <td>
+                                        <div v-if="item.canEdit">
+                                            <a class="btn badge-warning me-1" data-placement="bottom" data-popup="tooltip" title="Düzenle" :href="'/admin/update/' + item.uid"><i class="icon-pencil"></i> </a>
+                                            <a href="javascript:void(0);" class="btn badge-primary me-1" data-placement="bottom" data-popup="tooltip" title="Şifre Değiştirme" v-on:click="openPasswordChangeModal(item.uid)"><i class="mi-settings-backup-restore"></i> </a>                                                
+                                            <a href="javascript:void(0);" class="btn badge-danger" data-placement="bottom" data-popup="tooltip" title="Silme" v-on:click="adminDelete(item.uid)"><i class="icon-trash"></i> </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            @* <tfoot>
+                            <tr>
+                            <th colspan="4">
+                            <a asp-controller="Modüle" asp-action="Create" class="btn btn-success"><i class="icon-user-plus"></i> Admin Modülü Ekle</a>
+                            </th>
+                            </tr>
+                            </tfoot>*@
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="password-change-modal" tabindex="-1" role="dialog" aria-labelledby="password-change-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="password-change-modal-label">
+                    <h5 class="modal-title">Şifre Değiştir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form v-on:submit.prevent="passwordChange()">
+                        
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Yeni Şifre</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="newPassword.password" class="form-control" required minlength="4" maxlength="50" pattern="[\S]+" placeholder="Şifreyi giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Yeni Şifre Tekrar</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="newPassword.rePassword" class="form-control" required minlength="4" maxlength="50" placeholder="Şifre Tekararı">
+                                <span class="text-danger" v-if="newPassword.password && newPassword.password != newPassword.rePassword">Şifre eşleşmiyor!</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary mt-2 mb-2 btn-no-effect">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        const Uid = "@uid" == "" ? null : "@uid"; // admin_role_uid
+    </script>
+    <script src="~/views-js/admin/admin-sub.js" type="module" defer></script>
+}

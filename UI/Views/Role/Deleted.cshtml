@@ -1,0 +1,50 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Rol Sil";
+}
+
+@section Head{
+
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+         
+
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    
+                    <div class="table-responsive mt-2">
+                        <table class="table table-bordered" id="datatable_my">
+                            <thead>
+                                <tr>
+                                    <th>Rol Tanımı</th>
+                                    <th>Yönlendirileceği Sayfa</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr v-for="item in roles">
+                                    <td v-text="item.name"></td>
+                                    <td v-text="item.route"></td> 
+                                </tr>
+                            </tbody> 
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/views-js/role/role-deleted.js" type="module" defer></script>
+
+
+}
+

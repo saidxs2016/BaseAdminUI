@@ -1,0 +1,39 @@
+﻿
+// =============== Seq Docker Command ===============
+docker run -d --name seq --restart unless-stopped -v seq_data:/data -e ACCEPT_EULA=Y -p 5341:80 datalust/seq
+
+
+// =============== Publish İşlemi Öncesi Yapılması Gerekenler (Çok Önemli) ===============
+1- appseting.json
+	- "ConnectionStrings" kontrolü
+	- "SignalRClientOptions.Hubs" kontrolü
+	- "HealthChecksUI.HealthChecks" kontrolü 
+	- "EmailOptions.Configuration" kontrolü
+
+2- userserilog.json
+	- "ConnectionStrings" kontrolü
+	- "Seq" kontrolü 
+
+2- healthserilog.json
+	- "ConnectionStrings" kontrolü
+	- "Seq" kontrolü 
+
+3- serilog.json
+	- "ConnectionStrings" kontrolü
+	- "Seq" kontrolü 
+
+4- launchSettings.json
+	- local ip olmamasının kontrolü.
+
+5- wwwroot --> view-js
+	- içindeki signalr client url değiştirilmesi.
+	- varsa diğer linkler.
+
+6- DAL.DbContext'lerin
+	- OnConfiguring metodu yorum satra alınması. 
+
+7- DAL.DalRegistration
+	- DbContext'lerin ===> connection string'i eklenmiş olması.
+
+8- publish command
+	- dotnet publish -c Release -r ubuntu.22.04-x64 --no-self-contained

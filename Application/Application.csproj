@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>annotations</Nullable>
+  </PropertyGroup>
+
+
+	<ItemGroup>
+		
+		<PackageReference Include="MediatR" Version="12.1.1" />
+		<PackageReference Include="RabbitMQ.Client" Version="6.5.0" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
+		<PackageReference Include="Hangfire.AspNetCore" Version="1.8.5" />
+		<PackageReference Include="Hangfire.PostgreSql" Version="1.20.2" />
+		<PackageReference Include="Hangfire.Dashboard.Basic.Authentication" Version="7.0.1" />
+
+		
+		<PackageReference Include="RestSharp" Version="110.2.0" />
+		
+
+		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+		
+		<PackageReference Include="Microsoft.AspNetCore.Owin" Version="7.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
+		
+
+		<!--<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />-->
+
+		<PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="7.0.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.0" />
+		<PackageReference Include="AspNetCore.HealthChecks.SignalR" Version="7.0.0" />
+
+		<PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
+		<PackageReference Include="Serilog.Enrichers.Environment" Version="2.3.0-dev-00793" />
+		<PackageReference Include="Serilog.Enrichers.Process" Version="2.0.2" />
+		<PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+		<PackageReference Include="Serilog.Sinks.Seq" Version="5.2.3-dev-00262" />
+		<PackageReference Include="Serilog.Sinks.PostgreSQL" Version="2.3.0" />
+		<PackageReference Include="Serilog.Sinks.PostgreSQL.Configuration" Version="1.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	  <ProjectReference Include="..\DAL\DAL.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,0 +1,20 @@
+﻿
+	// ================= Database Type  =================  
+		PostgreSQL
+
+	// ================= Install global EF if not exist ================= 
+		1- Dotnet tool u powershell üzerinden indirin. 
+			// indirme kodu: "dotnet tool install --global dotnet-ef"
+		2- Tool u indirdikten sonra emin olmak için "dotnet ef --version" kodu çalıştırın.
+		3- help için; "dotnet ef --help"
+
+	// ================= Update EF Tool if its old version ================= 
+		1- "dotnet ef --version"
+		2- "dotnet tool update --global dotnet-ef"
+
+
+
+
+
+
+

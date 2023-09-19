@@ -1,0 +1,5 @@
+﻿
+
+// ======================== Notlar ========================
+// Handler metotlar içinde yada genel olarak yazılan kodlar arasında direct IHubContext kullanılmaz.
+// kodlar içinde signalr kullanmak için clientlerden birsini kullanabilirsin.

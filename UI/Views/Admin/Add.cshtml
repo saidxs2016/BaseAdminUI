@@ -1,0 +1,99 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Yeni Kullanıcı Ekleme"; 
+
+    var parentUid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : ""; 
+}
+
+@section Head{
+
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+      
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <form v-on:submit.prevent="SubmitForm()">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Kullanıcı Adı</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="admin.username" required minlength="4" maxlength="50" pattern="[\S]+" placeholder="Kullanıcı adı giriniz">
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Şifre</label>
+                            <div class="col-sm-10">
+                                <input type="password" v-model="admin.password" class="form-control" required minlength="4" maxlength="50" placeholder="Şifreniz">
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" v-model="admin.email" class="form-control" required maxlength="255" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Ad</label>
+                            <div class="col-sm-10">
+                                <input v-model="admin.name" class="form-control" required maxlength="255" placeholder="Adınız">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Soyad</label>
+                            <div class="col-sm-10">
+                                <input v-model="admin.surname" class="form-control" required maxlength="255" placeholder="Soyadınız">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Unvan</label>
+                            <div class="col-sm-10">
+                                <input v-model="admin.title" class="form-control" maxlength="255" placeholder="Unvan">
+                            </div>
+                        </div> 
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Telefon</label>
+                            <div class="col-sm-10">
+                                <input v-model="admin.phone" class="form-control" id="phone" required minlength="4" maxlength="50" placeholder="Telefon">
+                            </div>
+                        </div> 
+                      @*  <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Rol</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" v-model="admin.roleUid" placeholder="Rol">
+                                    <option v-for="item in roles" :value="item.uid">{{item.name}}</option>
+                                </select>
+                            </div>
+                        </div>*@
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-xxl-4 col-sm-4 col-4 mx-auto">
+                                <button type="submit" class="btn btn-success w-100">EKLE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        const ParentUid = "@parentUid" == "" ? null : "@parentUid";
+    </script>
+    <script src="~/lib/inputmask/jquery.inputmask.bundle.min.js" defer></script>
+    <script src="~/views-js/admin/admin-add.js" type="module" defer></script>
+
+
+}

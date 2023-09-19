@@ -1,0 +1,11 @@
+﻿
+
+// ======================== Notlar ========================
+// Contracts == Event Message işlevini yapacak notification sınıflarını barındırmakta
+// Consumers == Event Handler işlevini yapacak handler sınıflarını barındırmakta
+// MN == Mediator Notification
+// MNH == Mediator Notification Handler
+// buradan her hangi bir şekilde MedRHUI' klasör içindek handler'lere istek atılmaz.
+// buradan MedRHApplication' klsörü içindeki handlerler istek atılabilir (tavsiye edilmez).
+// burada event yakalandıktan sonra direk burada scope içinde işlenmesi tavsiye edilir.
+// burada IServiceScopeFactory kullanılabilir yeni scope oluşturmak için.

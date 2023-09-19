@@ -1,0 +1,334 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Profil";
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+}
+
+@section Head{
+}
+
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+   
+        <!-- Form validation -->
+        <div class="card">
+            <div class="card-header header-elements-inline">
+                <h5 class="card-title">DETAYLAR</h5>
+
+               
+
+
+                <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+
+                <div id="toggleAccordion" class="accordion">
+                    <div class="card">
+                        <div class="card-header" id="...">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed d-flex justify-content-between " data-bs-toggle="collapse" data-bs-target="#defaultAccordionOne" aria-expanded="false" aria-controls="defaultAccordionOne">
+                                    <div>Kullanıcı Detayları</div>
+                                    <div><i class="icon-more"></i> </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div id="defaultAccordionOne" class="collapse" aria-labelledby="..." data-bs-parent="#toggleAccordion">
+                            <div class="card-body d-flex flex-column">
+                                <div class="align-self-end">
+                                    <button class="btn btn-warning" v-on:click="openUpdateProfileModal()"><i class="fas fa-edit"></i> Düzenle </button>
+                                </div>
+                                <div>
+                                    
+                                    <table class="table table-borderless table-xs my-2">
+                                        <tbody>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>Ad Soyad: </td>
+                                                <td class="text-center" v-text="profile.name + ' ' + profile.surname"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>Kullanıcı Adı : </td>
+                                                <td class="text-center" v-text="profile.username"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>E-Posta : </td>
+                                                <td class="text-center" v-text="profile.email"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>Telefon No : </td>
+                                                <td class="text-center" v-text="profile.phone"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>Unvan : </td>
+                                                <td class="text-center" v-text="profile.title ?? ''"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><i class="icon-info22 me-2"></i>Şifre : </td>
+                                                <td class="text-center">************ <a href="javascript:void(0);" v-on:click="openPasswordChangeModal()" class="list-icons-item"><i class="icon-pencil7"></i></a> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="accordion mt-4">
+                    <div class="card">
+                        <div class="card-header" id="...">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed d-flex justify-content-between " data-bs-toggle="collapse" data-bs-target="#LoginLogoutMovements" aria-expanded="false" aria-controls="LoginLogoutMovements">
+                                    <div>Kullanıcı Hareketleri</div>
+                                    <div><i class="icon-more"></i> </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div id="LoginLogoutMovements" class="collapse" aria-labelledby="..." data-bs-parent="#toggleAccordion">
+                            <div class="card-body d-flex flex-column">
+
+                                <div>
+                                    <table class="table table-bordered" id="datatable-my">
+                                        <thead>
+                                            <tr>
+                                                <th>İşlem</th>
+                                                <th>İp</th>
+                                                <th>Konum</th>
+                                                <th>Mesaj</th>
+                                                <th>İşlem Tarihi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        @* <tfoot>
+                                        <tr>
+                                        <th colspan="4">
+                                        <a asp-controller="Modüle" asp-action="Create" class="btn btn-success"><i class="icon-user-plus"></i> Admin Modülü Ekle</a>
+                                        </th>
+                                        </tr>
+                                        </tfoot>*@
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="accordion mt-4">
+                    <div class="card">
+                        <div class="card-header" id="...">
+                            <section class="mb-0 mt-0">
+                                <div role="menu" class="collapsed d-flex justify-content-between " data-bs-toggle="collapse" data-bs-target="#connectionId" aria-expanded="false" aria-controls="connectionId">
+                                    <div>Bağlantı Anahtarı Oluştur</div>
+                                    <div><i class="icon-more"></i> </div>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div id="connectionId" class="collapse" aria-labelledby="..." data-bs-parent="#toggleAccordion">
+                            <div class="card-body d-flex flex-column">
+                                <div class="form-group"> 
+                                    <div class="col-xxl-4 col-sm-4 col-4 mx-auto">
+                                        <button type="submit" v-on:click="openConnectionKeyModal()" class="btn btn-light-primary w-100">Oluştur</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 col-form-label">Bağlantı Anahtarları</label>
+
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4" v-for="(item, index) in connectionKeys">
+                                            <div class="card mx-1 ">
+                                                <div class="card-header">
+                                                    Anahtar {{index +1}} | Bağlanan Sayısı - {{item.connected?.length ?? 0}}
+                                                </div>
+                                                <div class="card-body">
+                                                    <p class="card-text fw-bold pe-auto" v-on:click="copyDoiToClipboard(item.key)"> {{item.key}}
+                                                    </p> 
+                                                    <p class="card-text">
+                                                        {{item.description ?? 'Açıklama Eklenmemiştir..'}}
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="row justify-content-end">
+                                                        <div class="col-md-4">
+                                                            <a href="javascript:void(0);" v-on:click="connectionKeyDelete(item.key, item.validTo)" class="btn btn-danger w-100">Sil</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- /form validation -->
+    </div>
+
+    <!-- Modal profile-update  -->
+    <div class="modal fade" id="profile-update-modal" tabindex="-1" role="dialog" aria-labelledby="profile-update-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="profile-update-modal-label">
+                    <h5 class="modal-title">Şifre Değiştir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form v-on:submit.prevent="updateProfile()">
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="email" v-model="tempProfile.email" class="form-control" required maxlength="255" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Ad</label>
+                            <div class="col-sm-9">
+                                <input v-model="tempProfile.name" class="form-control" required maxlength="255" placeholder="Adınız">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Soyad</label>
+                            <div class="col-sm-9">
+                                <input v-model="tempProfile.surname" class="form-control" required maxlength="255" placeholder="Soyadınız">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Unvan</label>
+                            <div class="col-sm-9">
+                                <input v-model="tempProfile.title" class="form-control" maxlength="255" placeholder="Unvan">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Telefon</label>
+                            <div class="col-sm-9">
+                                <input v-model="tempProfile.phone" class="form-control" id="phone" required minlength="4" maxlength="50" placeholder="Telefon">
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success mt-2 mb-2 btn-no-effect">Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="password-change-modal" tabindex="-1" role="dialog" aria-labelledby="password-change-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="password-change-modal-label">
+                    <h5 class="modal-title">Şifre Değiştir</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form v-on:submit.prevent="passwordChange()">
+                        
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Eski Şifre</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="newPassword.oldPassword" class="form-control" required minlength="4" maxlength="50" pattern="[\S]+" placeholder="Eski Şifreyi Giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Yeni Şifre</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="newPassword.password" class="form-control" required minlength="4" maxlength="50" pattern="[\S]+" placeholder="Şifreyi Giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Yeni Şifre Tekrar</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="newPassword.rePassword" class="form-control" required minlength="4" maxlength="50" placeholder="Şifre Tekararı">
+                                <span class="text-danger" v-if="newPassword.password && newPassword.password != newPassword.rePassword">Şifre eşleşmiyor!</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success mt-2 mb-2 btn-no-effect">Güncelle</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Generate Connection Key -->
+    <div class="modal fade" id="connection-key-modal" tabindex="-1" role="dialog" aria-labelledby="connection-key-modal-label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered " role="document">
+            <div class="modal-content">
+                <div class="modal-header" id="connection-key-modal-label">
+                    <h5 class="modal-title">Bağlantı Anahtarı Oluştur</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form v-on:submit.prevent="generateConnectionKey()">
+                        
+
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Şifre</label>
+                            <div class="col-sm-9">
+                                <input type="password" v-model="connectionKey.password" class="form-control" required minlength="4" maxlength="50" pattern="[\S]+" placeholder="Şifreyi Giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-3 col-form-label">Açıklama</label>
+                            <div class="col-sm-9">
+                                <textarea rows="1" class="form-control" v-model="connectionKey.description" maxlength="500" placeholder="Açıklama giriniz"> </textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light-danger mt-2 mb-2 btn-no-effect" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-success mt-2 mb-2 btn-no-effect">Oluştur</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/inputmask/jquery.inputmask.bundle.min.js" defer></script>
+    <script src="~/views-js/profile/profile-index.js" type="module" defer></script>
+
+}

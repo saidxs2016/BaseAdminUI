@@ -1,0 +1,60 @@
+﻿@model GetRequestModel
+@{
+    ViewData["Title"] = "Rol Güncelleme";
+
+    var uid = Model.Uid.HasValue ? Model.Uid.Value.ToString() : "";
+}
+
+@section Head{
+
+}
+
+
+<div class="row" id="app">
+    <div class="col-lg-12">
+       
+        <div class="pt-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <form v-on:submit.prevent="UpdateForm()">
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Rol Tanımı</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="role.name" required minlength="3" maxlength="255" placeholder="Rol tanımı giriniz">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-1">
+                            <label class="col-sm-2 col-form-label">Yönlendirilecek Sayfa</label>
+                            <div class="col-sm-10">
+                                <input class="form-control" v-model="role.route" maxlength="255" placeholder="Rol tanımı giriniz">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 col-form-label">&nbsp;</label>
+                            <div class="col-xxl-4 col-sm-4 col-4 mx-auto">
+                                <button type="submit" class="btn btn-success w-100">Güncelle</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+
+    <script type="text/javascript">
+        const RoleUid = "@Model.Uid" == "" ? null : "@Model.Uid";
+    </script>
+    <script src="~/views-js/role/role-update.js" type="module" defer></script>
+
+
+}
+

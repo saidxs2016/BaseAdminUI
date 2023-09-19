@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "vue@3.3.4",
+      "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "moment.js@2.29.4",
+      "destination": "wwwroot/lib/moment.js/"
+    },
+    {
+      "library": "font-awesome@6.4.0",
+      "destination": "wwwroot/lib/font-awesome/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    },
+    {
+      "library": "inputmask@4.0.9",
+      "destination": "wwwroot/lib/inputmask/"
+    },
+    {
+      "library": "sweetalert2@11.7.5",
+      "destination": "wwwroot/lib/sweetalert2/"
+    },
+    {
+      "library": "axios@1.4.0",
+      "destination": "wwwroot/lib/axios/"
+    },
+    {
+      "library": "jquery.blockUI@2.70",
+      "destination": "wwwroot/lib/jquery.blockUI/"
+    },
+    {
+      "library": "jqueryui@1.13.2",
+      "destination": "wwwroot/lib/jqueryui/"
+    },
+    {
+      "library": "tagify@4.17.8",
+      "destination": "wwwroot/lib/tagify/"
+    },
+    {
+      "library": "html5-qrcode@2.3.8",
+      "destination": "wwwroot/lib/html5-qrcode/"
+    },
+    {
+      "library": "microsoft-signalr@7.0.10",
+      "destination": "wwwroot/lib/microsoft-signalr/"
+    }
+  ]
+}

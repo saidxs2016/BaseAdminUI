@@ -1,0 +1,9 @@
+﻿
+
+// ======================== Notlar ========================
+// SharedJobs içinde çalıştırmak istediğimiz bir çok metot yer alabilir.
+// tercihen cronjob çalıştırcak metot burada olamsına özen göstermeliyiz(tavsiye edilir).
+// direct bir notification yada request çalıştırabiliriz.(tavsiye edilmez)
+// normal şartlarda cronjob metotlar içinde direk işlem yapılmaz.
+// burada IServiceScopeFactory kullanılmasına gerek yok.
+// burada IServiceScopeFactory kullanıldığında yeni scope oluşur.

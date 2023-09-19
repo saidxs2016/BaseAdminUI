@@ -1,0 +1,7 @@
+﻿
+
+// ======================== Notlar ========================
+// tüm Hosted serviceler Worker kelimesi ile bitecek
+// herhangi bir worker içinde yapılacak işlem ayrı bir task içinde yapılmak zorunda. çünkü bakground service asyncron süreç bize sağlamıyor ilk proje ayağa kalktığında
+// tüm workerler içinde Scope Dependency injection sağlamak için IServiceScopeFactory kullanılmak zorunda.
+// TestWoker sadece test işlemleri için oluşturuldu.

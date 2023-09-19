@@ -1,0 +1,107 @@
+﻿@inject IAntiforgery antiforgery
+@{
+    Layout = null;
+    var request_token = antiforgery.GetAndStoreTokens(Context).RequestToken;
+    var isSuccess = Convert.ToString(Context.Request.Query["isSuccess"]);
+    var message = Convert.ToString(Context.Request.Query["message"]);
+    var model = new { isSuccess, message };
+
+    var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>SAID YUNUS | AKTİVASYON İŞLEMİ </title>
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />
+    <link href="~/theme/layouts/modern-light-menu/css/light/loader.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/layouts/modern-light-menu/css/dark/loader.css" rel="stylesheet" type="text/css" />
+    <script src="~/theme/layouts/modern-light-menu/loader.js"></script>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+    <link href="~/theme/src/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/layouts/modern-light-menu/css/light/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/src/assets/css/light/pages/error/style-maintanence.css" rel="stylesheet" type="text/css" />
+
+    <link href="~/theme/layouts/modern-light-menu/css/dark/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="~/theme/src/assets/css/dark/pages/error/style-maintanence.css" rel="stylesheet" type="text/css" />
+    <!-- END GLOBAL MANDATORY STYLES -->
+
+    <style>
+        body.dark .theme-logo.dark-element {
+            display: inline-block;
+        }
+
+        .theme-logo.dark-element {
+            display: none;
+        }
+
+        body.dark .theme-logo.light-element {
+            display: none;
+        }
+
+        .theme-logo.light-element {
+            display: inline-block;
+        }
+
+    </style>
+
+
+    <script type="text/javascript">
+        const VerifyToken = "@request_token";
+        const Result = @Json.Serialize(model);
+    </script>
+
+    <script src="~/theme/src/plugins/src/jquery/jquery.min.js" defer></script>
+    <script src="~/theme/src/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+    @if (env == "Production")
+    {
+        <script src="~/lib/vue/vue.global.prod.js" defer></script>
+    }
+    else
+    {
+        <script src="~/lib/vue/vue.global.min.js" defer></script>
+
+    }
+
+    <script src="~/views-js/account/activation-result.js" type="module" defer></script>
+
+</head>
+<body class="maintanence text-center">
+
+    <!-- BEGIN LOADER -->
+    <div id="load_screen">
+        <div class="loader">
+            <div class="loader-content">
+                <div class="spinner-grow align-self-center"></div>
+            </div>
+        </div>
+    </div>
+    <!--  END LOADER -->
+     
+
+    <div class="container-fluid maintanence-content" id="app">
+        <div class="">
+            <div class="maintanence-hero-img">
+                <a href="/">
+                    <img alt="logo" src="~/theme/src/assets/img/logo.svg" class="dark-element theme-logo">
+                    <img alt="logo" src="~/theme/src/assets/img/logo2.svg" class="light-element theme-logo">
+                </a>
+            </div>
+
+            <h1 :class="result.isSuccess ? 'error-title text-success':'error-title text-danger'">Aktivasyon</h1>
+            <p class="error-text " v-text="result.message"></p>
+            <a :href="typeObj.url" class="btn btn-dark w-50 mt-4 " v-text="typeObj.text"></a>
+
+        </div>
+    </div>
+
+
+
+   
+
+</body>
+</html>
