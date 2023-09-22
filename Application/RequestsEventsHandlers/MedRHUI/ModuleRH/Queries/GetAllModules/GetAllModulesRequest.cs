@@ -1,12 +1,16 @@
 ﻿using Application.DTO.DataObjects;
 using Application.DTO.Models;
 using Application.DTO.ResultType;
+using Application.RequestsEventsHandlers.MedRHUI.ModuleRH.Queries.GetModules;
 using AutoMapper;
+using DAL.Extensions;
 using DAL.MainDB.Repositories.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq.Dynamic.Core;
+using System.Linq.Dynamic.Core.Tokenizer;
 using System.Linq.Expressions;
 
 namespace Application.RequestsEventsHandlers.MedRHUI.ModuleRH.Queries.GetAllModules;
@@ -70,7 +74,23 @@ public class GetAllModulesHandler : IRequestHandler<GetAllModulesRequest, Result
     private async Task<Result<List<ModuleDO>>> GetData(List<ModuleDO> records, GetAllModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate)
     {
         await Task.Delay(1);
+
         var result = new Result<List<ModuleDO>>();
+
+        var (query, data_count, filtered_data_count) = BuilderQuery(records, request, modulePredicate);
+        var props = _mapper.Map<PaginatedProps>(request);
+        var data = query.PaginatedRecords(props);
+
+
+        result.Data = data;
+        result.RecordsTotal = data_count;
+        result.RecordsFiltered = !string.IsNullOrEmpty(request.SearchValue) ? filtered_data_count : data_count;
+
+        return result;
+    }
+
+    private (IQueryable<ModuleDO>, long, long) BuilderQuery(List<ModuleDO> records, GetAllModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate)
+    {
         var query = from module in records.AsQueryable()
                     select new ModuleDO
                     {
@@ -110,31 +130,9 @@ public class GetAllModulesHandler : IRequestHandler<GetAllModulesRequest, Result
 
         var filtered_data_count = query.LongCount();
 
-        // sıralama şekli
-        if (!string.IsNullOrEmpty(request.OrderBy) && !string.IsNullOrEmpty(request.OrderByDirection))
-        {
-            query = query.OrderBy(request.OrderBy + " " + request.OrderByDirection);
-        }
+        return (query, data_count, filtered_data_count);
 
-        // kaç kayıt atlanacak.
-        if (request.Skip > 0)
-            query = query.Skip(request.Skip);
-
-        // kaç adet çekileceği
-        if (request.PageSize > 0)
-            query = query.Take(request.PageSize);
-
-        // query'i çalıştır.
-        var data = query.ToList();
-
-
-        result.Data = data;
-        result.RecordsTotal = data_count;
-        result.RecordsFiltered = !string.IsNullOrEmpty(request.SearchValue) ? filtered_data_count : data_count;
-
-        return result;
     }
-
 }
 
 public class GetAllModulesRequest : RequestModel, IRequest<Result<List<ModuleDO>>>

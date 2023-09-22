@@ -2,6 +2,7 @@
 using Application.DTO.Models;
 using Application.DTO.ResultType;
 using AutoMapper;
+using DAL.Extensions;
 using DAL.MainDB.Repositories.Interfaces;
 using FluentValidation;
 using MediatR;
@@ -66,6 +67,19 @@ public class GetModulesHandler : IRequestHandler<GetModulesRequest, Result<List<
     {
         var result = new Result<List<ModuleDO>>();
 
+        var (query, data_count, filtered_data_count) = await BuilderQueryAsync(request, modulePredicate, token);
+        var props = _mapper.Map<PaginatedProps>(request);
+        var data = await query.PaginatedRecordsAsync(props, token);
+
+        result.Data = data;
+        result.RecordsTotal = data_count;
+        result.RecordsFiltered = !string.IsNullOrEmpty(request.SearchValue) ? filtered_data_count : data_count;
+
+        return result;
+    }
+    private async Task<(IQueryable<ModuleDO>, long, long)> BuilderQueryAsync(GetModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate, CancellationToken token = default)
+    {
+
         var query = from module in _moduleRepository.AsQueryable()
                     select new ModuleDO
                     {
@@ -104,34 +118,8 @@ public class GetModulesHandler : IRequestHandler<GetModulesRequest, Result<List<
             );
 
         var filtered_data_count = await query.LongCountAsync(cancellationToken: token);
-
-        // sıralama şekli
-        if (!string.IsNullOrEmpty(request.OrderBy) && !string.IsNullOrEmpty(request.OrderByDirection))
-        {
-            query = query.OrderBy(request.OrderBy + " " + request.OrderByDirection);
-        }
-
-        // kaç kayıt atlanacak.
-        if (request.Skip > 0)
-            query = query.Skip(request.Skip);
-
-        // kaç adet çekileceği
-        if (request.PageSize > 0)
-            query = query.Take(request.PageSize);
-
-        // query'i çalıştır.
-        var data = await query.ToListAsync(cancellationToken: token);
-
-
-        //GC.Collect(); // ============ DIKKAT : bu kod tehlikeli tekrar bakılacak ============
-
-        result.Data = data;
-        result.RecordsTotal = data_count;
-        result.RecordsFiltered = !string.IsNullOrEmpty(request.SearchValue) ? filtered_data_count : data_count;
-
-        return result;
+        return (query, data_count, filtered_data_count);
     }
-
 }
 
 public class GetModulesRequest : RequestModel, IRequest<Result<List<ModuleDO>>>
