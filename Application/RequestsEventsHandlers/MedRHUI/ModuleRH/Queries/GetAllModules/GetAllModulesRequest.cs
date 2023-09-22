@@ -77,7 +77,7 @@ public class GetAllModulesHandler : IRequestHandler<GetAllModulesRequest, Result
 
         var result = new Result<List<ModuleDO>>();
 
-        var (query, data_count, filtered_data_count) = BuilderQuery(records, request, modulePredicate);
+        var (query, data_count, filtered_data_count) = BuildQuery(records, request, modulePredicate);
         var props = _mapper.Map<PaginatedProps>(request);
         var data = query.PaginatedRecords(props);
 
@@ -89,7 +89,7 @@ public class GetAllModulesHandler : IRequestHandler<GetAllModulesRequest, Result
         return result;
     }
 
-    private (IQueryable<ModuleDO>, long, long) BuilderQuery(List<ModuleDO> records, GetAllModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate)
+    private (IQueryable<ModuleDO>, long, long) BuildQuery(List<ModuleDO> records, GetAllModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate)
     {
         var query = from module in records.AsQueryable()
                     select new ModuleDO

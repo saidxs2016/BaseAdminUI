@@ -67,7 +67,7 @@ public class GetModulesHandler : IRequestHandler<GetModulesRequest, Result<List<
     {
         var result = new Result<List<ModuleDO>>();
 
-        var (query, data_count, filtered_data_count) = await BuilderQueryAsync(request, modulePredicate, token);
+        var (query, data_count, filtered_data_count) = await BuildQueryAsync(request, modulePredicate, token);
         var props = _mapper.Map<PaginatedProps>(request);
         var data = await query.PaginatedRecordsAsync(props, token);
 
@@ -77,7 +77,7 @@ public class GetModulesHandler : IRequestHandler<GetModulesRequest, Result<List<
 
         return result;
     }
-    private async Task<(IQueryable<ModuleDO>, long, long)> BuilderQueryAsync(GetModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate, CancellationToken token = default)
+    private async Task<(IQueryable<ModuleDO>, long, long)> BuildQueryAsync(GetModulesRequest request, Expression<Func<ModuleDO, bool>> modulePredicate, CancellationToken token = default)
     {
 
         var query = from module in _moduleRepository.AsQueryable()
