@@ -52,7 +52,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
             var notification = new DeletedRecordMN
             {
                 Operation = "add",
-                Entity = typeof(T).Name,
+                Entity = nameof(T),
                 InstanceId = _db.ContextId.InstanceId,
                 Confirmed = false,
                 Date = DateTime.Now,
@@ -72,7 +72,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
             var notification = new DeletedRecordMN
             {
                 Operation = "add",
-                Entity = typeof(T).Name,
+                Entity = nameof(T),
                 InstanceId = _db.ContextId.InstanceId,
                 Confirmed = false,
                 Date = DateTime.Now,
@@ -110,7 +110,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
             var notification = new DeletedRecordMN
             {
                 Operation = "add",
-                Entity = typeof(T).Name,
+                Entity = nameof(T),
                 InstanceId = _db.ContextId.InstanceId,
                 Confirmed = true,
                 Date = DateTime.Now,

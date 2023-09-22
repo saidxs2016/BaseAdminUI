@@ -105,7 +105,7 @@ public static class ApplicationRegistration
             DarkModeEnabled = true,
             Authorization = new[] { new HangfireAuthorizationFilter() }
         });
-        var notif_hub_uri = new Uri(app.Configuration[$"SignalRClientOptions:Hubs:{typeof(NotificationHub).Name}"]);
+        var notif_hub_uri = new Uri(app.Configuration[$"SignalRClientOptions:Hubs:{nameof(NotificationHub)}"]);
        
         app.MapHub<NotificationHub>(notif_hub_uri.LocalPath, opt =>
         {
